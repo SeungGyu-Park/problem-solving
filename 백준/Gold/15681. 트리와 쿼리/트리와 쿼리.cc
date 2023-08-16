@@ -8,7 +8,7 @@
 using namespace std;
 
 vector<int> g[100001];
-vector<int> adj[100001];
+// vector<int> adj[100001];
 int n, r, q;
 int vis[100001];
 int subTrees[100001];
@@ -24,26 +24,26 @@ int count_subtrees(int root) {
 }
 
 // root가 cur_root인 트리 만들기
-int parent[100001];
+// int parent[100001];
 
-void make_tree(int cur_root, int prev_root) {
-    for (int &nxt_child : g[cur_root]) {
-        if (nxt_child == prev_root) continue;
-        adj[cur_root].push_back(nxt_child);
-        parent[nxt_child] = cur_root;
-        make_tree(nxt_child, cur_root);
-    }
-}
+// void make_tree(int cur_root, int prev_root) {
+//     for (int &nxt_child : g[cur_root]) {
+//         if (nxt_child == prev_root) continue;
+//         adj[cur_root].push_back(nxt_child);
+//         parent[nxt_child] = cur_root;
+//         make_tree(nxt_child, cur_root);
+//     }
+// }
 
-int cnt[100001];
+// int cnt[100001];
 
-void countSubtrees(int root) {
-    cnt[root] = 1;
-    for (int &nxt_child : adj[root]) {
-        countSubtrees(nxt_child);
-        cnt[root] += cnt[nxt_child];
-    }
-}
+// void countSubtrees(int root) {
+//     cnt[root] = 1;
+//     for (int &nxt_child : adj[root]) {
+//         countSubtrees(nxt_child);
+//         cnt[root] += cnt[nxt_child];
+//     }
+// }
 int main(void) {
     ios::sync_with_stdio(false);
     cin.tie(0);cout.tie(0);
@@ -60,14 +60,14 @@ int main(void) {
     }
     subTrees[n] = 1;
 
-    make_tree(r, -1);
-    countSubtrees(r);
+    // make_tree(r, -1);
+    // countSubtrees(r);
     
-    // count_subtrees(r);
+    count_subtrees(r);
     while (q--) {
         int x; cin >> x;
-        // cout << subTrees[x] << endl;
-        cout << cnt[x] << endl;
+        cout << subTrees[x] << endl;
+        // cout << cnt[x] << endl;
     }
     return 0;
 }
