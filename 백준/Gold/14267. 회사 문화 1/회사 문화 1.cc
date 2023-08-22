@@ -12,8 +12,7 @@ int score[100'001];
 
 void dfs(int root) {
     for (int &nxt_child : g[root]) {
-        if (root != 1)
-            score[nxt_child] += score[root];
+        score[nxt_child] += score[root];
         dfs(nxt_child);
     }
 }
