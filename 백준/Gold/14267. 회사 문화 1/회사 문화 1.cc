@@ -1,9 +1,5 @@
 #include <iostream>
-#include <vector>
-#include <queue>
-#include <string.h>
 #include <algorithm>
-#define ll long long
 #define endl "\n"
 using namespace std;
 
@@ -20,14 +16,13 @@ void dfs(int root) {
 int main(void) {
     ios::sync_with_stdio(false);
     cin.tie(0);cout.tie(0);
-    // freopen("input.txt", "r", stdin);
 
     int n, m;
     
     cin >> n >> m;
     for (int i = 1; i<=n;i++) {
         int c; cin >> c;
-        // c의 부모는 i
+        // c의 자식은 i
         if (c != -1)
             g[c].push_back(i);
     }
@@ -37,10 +32,7 @@ int main(void) {
         cin >> v >> w;
         score[v] += w;
     }
-
     dfs(1);
-    for (int i = 1 ; i<=n;i++) {
-        cout << score[i] << " ";
-    }
+    for (int i = 1 ; i<=n;i++) cout << score[i] << " ";
     return 0;
 }
