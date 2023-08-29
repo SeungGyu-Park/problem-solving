@@ -43,11 +43,11 @@ int main(void) {
         }
     }
 
-    vector<pair<int, int>> ord;
+    vector<string> ord;
     for (int e : root) {
         if (deg[e]) continue;
         queue<int> q;
-
+        ord.push_back(idx_to_name[e]);
         q.push(e);
         int cnt = 0;
         while (!q.empty()) {
@@ -60,13 +60,12 @@ int main(void) {
                 }
             }
         }
-        ord.push_back({cnt, e});
     }
 
-    sort(ord.begin(), ord.end(), greater<>());
+    sort(ord.begin(), ord.end());
     cout << ord.size() << endl;
-    for (auto e: ord) {
-        cout << idx_to_name[e.second] << " ";
+    for (auto e : ord) {
+        cout << e << " ";
     }
     cout << endl;
     for (int i = 1; i<=n;i++)
