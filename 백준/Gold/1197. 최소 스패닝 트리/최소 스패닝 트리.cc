@@ -1,56 +1,55 @@
 #include <iostream>
-#include <tuple>
 #include <vector>
 #include <queue>
+#include <string.h>
 #include <algorithm>
+#define ll long long
 #define endl "\n"
 using namespace std;
 
-int n, m;
-int root[100001];
-vector<tuple<int, int, int>> edge;
+vector<tuple<int, int, int>> g;
+int p[10001];
 
 int find(int x) {
-    if (x == root[x]) return x;
-    return root[x] = find(root[x]);
+    if (x == p[x]) return x;
+    return p[x] = find(p[x]);
 }
 
-void union_tree(int a, int b) {
+void uni(int a, int b) {
     a = find(a);
     b = find(b);
-    if (a < b) root[b] = a;
-    else root[a] = b;
+
+    if (a < b) p[b] = a;
+    else p[a] = b;
 }
-// 부모가 같다면 같은 트리로 묶임.
-bool find_parent(int a, int b) {
-    a = find(a);
-    b = find(b);
-    if (a == b) return 1;
-    return 0;
-}
+
 int main(void) {
     ios::sync_with_stdio(false);
     cin.tie(0);cout.tie(0);
     // freopen("input.txt", "r", stdin);
 
-    cin >> n >> m;
-    for (int i = 0; i < m;i++){
+    int v, e;
+
+    cin >> v >> e;
+    
+    for (int i = 0; i < e;i++) {
         int a, b, c;
-        cin  >> a >> b >> c;
-        edge.push_back({c, a, b});
+        cin >> a >> b >> c;
+        g.push_back({c, a, b});
     }
-    for (int i = 1; i<=n;i++)
-        root[i] = i;
-    sort(edge.begin(), edge.end());
+
+    sort(g.begin(), g.end());
+    for (int i = 1; i<=v;i++) p[i] = i;
+
     int ans = 0;
-    for (int i = 0; i < edge.size();i++){
-        int cost, a, b;
-        tie(cost, a, b) = edge[i];
-        if (!find_parent(a, b)) {
-            ans += cost;
-            union_tree(a, b);
+    for (auto nxt : g) {
+        int c, a, b;
+        tie(c, a, b) = nxt;
+        if (find(a) != find(b)) {
+            ans += c;
+            uni(a, b);
         }
     }
-    cout << ans << endl;
+    cout << ans;
     return 0;
 }
