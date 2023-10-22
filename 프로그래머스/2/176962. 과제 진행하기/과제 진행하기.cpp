@@ -13,12 +13,11 @@ bool cmp(vector<string> a, vector<string> b) {
 
 vector<string> solution(vector<vector<string>> plans) {
     vector<string> answer;
+    vector<pair<string, pair<int, int>>> p;
+    stack<pair<string, pair<int, int>>> hold;
     
     sort(plans.begin(), plans.end(), cmp);
     
-    vector<pair<string, pair<int, int>>> p;
-    
-    stack<pair<string, pair<int, int>>> hold;
     for (int i = 0; i < plans.size();i++) {
         string str = plans[i][0];
         int start = stoi(plans[i][1].substr(0, 2)) * 60 + stoi(plans[i][1].substr(3, 5));
@@ -57,7 +56,7 @@ vector<string> solution(vector<vector<string>> plans) {
                     answer.push_back(holdOne.first);
                     // 이제 과제를 마쳤으니 끝나는 시간을 더 저장한다.
                     endTime += holdPayTime;
-                    if (endTime == nextTime) break;
+                    // if (endTime == nextTime) break;
                 } else {
                     cout << holdOne.first << "\n";
                     hold.push({holdOne.first, {endTime + holdPayTime, endTime + holdPayTime - nextTime}});
