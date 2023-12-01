@@ -9,7 +9,6 @@ using namespace std;
 
 int n, k;
 int ana[11][11];
-int d[11];
 vector<int> res;
 
 void dfs(int cur, int vis[11], int sum) {
@@ -27,19 +26,12 @@ void dfs(int cur, int vis[11], int sum) {
     int tmp[11];
     for (int i = 0; i < n;i++) tmp[i] = vis[i];
 
-    vector<pair<int, int>> v;
     for (int i = 0; i < n;i++) {
         if (i == cur) continue;
         if (tmp[i]) continue;
-        v.push_back({ana[cur][i], i});
-    }
-    sort(v.begin(), v.end());
-    int minn = v[0].first;
-    for (auto e : v) {
-        // if (e.first != minn) break;
-        tmp[e.second] = 1;
-        dfs(e.second, tmp, sum + ana[cur][e.second]);
-        tmp[e.second] = 0;
+        tmp[i] = 1;
+        dfs(i, tmp, sum + ana[cur][i]);
+        tmp[i] = 0;
     }
 }
 int main(void) {
