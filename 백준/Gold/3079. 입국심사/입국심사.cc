@@ -31,7 +31,7 @@ int main(void) {
 
     for (int i = 0; i < n;i++) cin >> a[i];
 
-    ull st = 0, en = m * (*max_element(a, a + n));
+    ull st = 1, en = m * (*max_element(a, a + n));
     ull ret = 0;
     while (st <= en) {
         ull mid = (st + en) / 2;
