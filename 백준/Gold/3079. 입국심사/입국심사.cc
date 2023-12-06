@@ -38,8 +38,8 @@ int main(void) {
         ull mid = (st + en) / 2;
 
         if (solve(mid)) {
-            if (ret == 0 || ret > mid)
-                ret = mid;
+            // if (ret == 0 || ret > mid)
+            ret = mid;
             en = mid - 1;
         } else st = mid + 1;
     }
