@@ -31,14 +31,12 @@ int main(void) {
 
     for (int i = 0; i < n;i++) cin >> a[i];
 
-    sort(a, a + n);
-    ull st = 0, en = m * a[n-1];
+    ull st = 0, en = m * (*max_element(a, a + n));
     ull ret = 0;
     while (st <= en) {
         ull mid = (st + en) / 2;
 
         if (solve(mid)) {
-            // if (ret == 0 || ret > mid)
             ret = mid;
             en = mid - 1;
         } else st = mid + 1;
