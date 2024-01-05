@@ -8,8 +8,8 @@
 using namespace std;
 
 int n, m, h;
-bool la[31][11];
-int ans = 1e9;
+bool la[32][12];
+bool flag = false;
 vector<pair<int, int>> pos;
 
 // 아래로 내려가야 하는디. i번째 줄에 위치해야 한다.
@@ -26,6 +26,22 @@ bool check() {
     return true;
 }
 
+void dfs(int st, int d, int maxx) {
+    if (d == maxx) {
+        if (check()) {
+            cout << d;
+            flag = true;
+        }
+        return;
+    }
+
+    for (int i = st; i < pos.size();i++) {
+        la[pos[i].first][pos[i].second] = true;
+        dfs(i+1, d+1, maxx);
+        if (flag) return;
+        la[pos[i].first][pos[i].second] = false;
+    }
+}
 int main(void) {
     ios::sync_with_stdio(false);
     cin.tie(0);cout.tie(0);
@@ -47,28 +63,10 @@ int main(void) {
         }
     }
 
-    if (check()) {
-        cout << 0; return 0;
+    for (int i = 0; i < 4;i++) {
+        dfs(0, 0, i);
+        if (flag) break;
     }
-
-    for (int i = 0; i < pos.size(); i++) {
-        la[pos[i].first][pos[i].second] = true;
-        if (check()) ans = min(ans, 1);
-
-        for (int j = i + 1; j < pos.size(); j++) {
-            la[pos[j].first][pos[j].second] = true;
-            if (check()) ans = min(ans, 2);
-            
-            for (int k = j + 1; k < pos.size(); k++) {
-                la[pos[k].first][pos[k].second] = true;
-                if (check()) ans = min(ans, 3);
-                la[pos[k].first][pos[k].second] = false;
-            }
-            la[pos[j].first][pos[j].second] = false;
-        }
-        la[pos[i].first][pos[i].second] = false;
-    }
-    if (ans == 1e9) ans = -1;
-    cout << ans;
+    if (!flag) cout << -1;
     return 0;
 }
